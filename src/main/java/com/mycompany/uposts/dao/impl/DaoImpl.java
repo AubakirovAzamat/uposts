@@ -9,12 +9,15 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.mycompany.uposts.dao.Dao;
-import com.mycompany.uposts.domen.constant.Code;
-import com.mycompany.uposts.domen.dto.User;
-import com.mycompany.uposts.domen.response.exception.CommonException;
+import com.mycompany.uposts.domain.constant.Code;
+import com.mycompany.uposts.domain.dto.User;
+import com.mycompany.uposts.domain.entity.Post;
+import com.mycompany.uposts.domain.entity.PostRowMapper;
+import com.mycompany.uposts.domain.response.exception.CommonException;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import java.util.List;
 
 @Slf4j
 @Repository
@@ -32,6 +35,17 @@ public class DaoImpl extends JdbcDaoSupport implements Dao {
     @PostConstruct
     private void initialize() {
         setDataSource(dataSource);
+    }
+
+    @Override
+    public List<String> getTagsByPostId(long postId) {
+        return jdbcTemplate.queryForList("SELECT text FROM tag WHERE id IN (SELECT tag_id FROM post_tag WHERE post_id = ?);", String.class, postId);
+    }
+
+
+    @Override
+    public List<Post> getPostsByUserId(long userId) {
+        return jdbcTemplate.query("SELECT * FROM post WHERE user_id = ? ORDER BY time_insert DESC;", new PostRowMapper(), userId);
     }
 
 
@@ -62,13 +76,13 @@ public class DaoImpl extends JdbcDaoSupport implements Dao {
 
 
     @Override
-    public long getIdByToken(String accessToken) {
+    public long getUserIdByToken(String accessToken) {
 
         try {
             return jdbcTemplate.queryForObject("SELECT id FROM user WHERE access_token = ?;", Long.class, accessToken);
         } catch (EmptyResultDataAccessException ex) {
             log.error(ex.toString());
-            throw CommonException.builder().code(Code.AUTHORIZATION_ERROR).message("Ошибка авторизации").httpStatus(HttpStatus.BAD_REQUEST).build();
+            throw CommonException.builder().code(Code.AUTHORIZATION_ERROR).userMessage("Ошибка авторизации").httpStatus(HttpStatus.BAD_REQUEST).build();
         }
     }
 
@@ -82,7 +96,7 @@ public class DaoImpl extends JdbcDaoSupport implements Dao {
                     String.class, user.getNickname(), user.getEncryptPassword());
         } catch (EmptyResultDataAccessException ex) {
             log.error(ex.toString());
-            throw CommonException.builder().code(Code.USER_NOT_FOUND).message("Пользователь не найден").httpStatus(HttpStatus.BAD_REQUEST).build();
+            throw CommonException.builder().code(Code.USER_NOT_FOUND).userMessage("Пользователь не найден").httpStatus(HttpStatus.BAD_REQUEST).build();
         }
     }
 

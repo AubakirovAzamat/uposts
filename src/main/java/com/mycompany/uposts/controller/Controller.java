@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.mycompany.uposts.domen.api.LoginReq;
-import com.mycompany.uposts.domen.api.RegistrationReq;
-import com.mycompany.uposts.domen.api.PublicPostReq;
-import com.mycompany.uposts.domen.response.Response;
+
+import com.mycompany.uposts.domain.api.LoginReq;
+import com.mycompany.uposts.domain.api.PublicPostReq;
+import com.mycompany.uposts.domain.api.RegistrationReq;
+import com.mycompany.uposts.domain.response.Response;
 import com.mycompany.uposts.service.PostService;
 
 
@@ -52,6 +53,14 @@ public class Controller {
         log.info("START endpoint registration, request: {}", req);
         ResponseEntity<Response> resp = postService.registration(req);
         log.info("END endpoint registration, response: {}", resp);
+        return resp;
+    }
+
+    @GetMapping("/getMyPosts")
+    public ResponseEntity<Response> getMyPosts(@RequestHeader final String accessToken) {
+        log.info("START endpoint getMyPosts, accessToken: {}", accessToken);
+        ResponseEntity<Response> resp = postService.getMyPosts(accessToken);
+        log.info("END endpoint getMyPosts, response: {}", resp);
         return resp;
     }
 }

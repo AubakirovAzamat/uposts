@@ -1,17 +1,20 @@
-package com.mycompany.uposts.domen.api;
+package com.mycompany.uposts.domain.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.mycompany.uposts.domen.constant.RegExp;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+
+import com.mycompany.uposts.domain.constant.RegExp;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Authorization {
+public class AuthorizationReq {
     @NotBlank(message = "nickname должен быть заполнен")
     @Pattern(regexp = RegExp.nickname, message = "Некорректный nickname")
     private String nickname;

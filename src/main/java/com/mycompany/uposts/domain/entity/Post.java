@@ -1,4 +1,4 @@
-package com.mycompany.uposts.domen.api;
+package com.mycompany.uposts.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResp {
-    
-    private String accessToken;
+public class Post {
+    private long id;
+    private long userId;
+    private String text;
+    private String timeInsert;
 }

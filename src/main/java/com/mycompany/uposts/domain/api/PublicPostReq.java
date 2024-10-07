@@ -1,14 +1,16 @@
-package com.mycompany.uposts.domen.api;
+package com.mycompany.uposts.domain.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.mycompany.uposts.domen.constant.RegExp;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.mycompany.uposts.domain.constant.RegExp;
+
 import java.util.List;
 
 @Data

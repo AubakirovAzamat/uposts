@@ -1,4 +1,4 @@
-package com.mycompany.uposts.domen.response;
+package com.mycompany.uposts.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

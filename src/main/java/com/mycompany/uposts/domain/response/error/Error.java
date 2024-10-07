@@ -1,9 +1,10 @@
-package com.mycompany.uposts.domen.response.error;
+package com.mycompany.uposts.domain.response.error;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.mycompany.uposts.domain.constant.Code;
+
 import lombok.Builder;
 import lombok.Data;
-import com.mycompany.uposts.domen.constant.Code;
 
 @Data
 @Builder
@@ -11,5 +12,6 @@ import com.mycompany.uposts.domen.constant.Code;
 public class Error {
 
     private Code code;
-    private String message;
+    private String userMessage;
+    private String techMessage;
 }

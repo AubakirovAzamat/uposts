@@ -1,4 +1,4 @@
-package com.mycompany.uposts.domen.constant;
+package com.mycompany.uposts.domain.constant;
 
 public enum Code {
 
@@ -7,5 +7,6 @@ public enum Code {
     INTERNAL_SERVER_ERROR,
     TEST,
     USER_NOT_FOUND,
-    AUTHORIZATION_ERROR
+    AUTHORIZATION_ERROR,
+    MISSING_REQUEST_HEADER
 }

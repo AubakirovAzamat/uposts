@@ -1,4 +1,4 @@
-package com.mycompany.uposts.domen.dto;
+package com.mycompany.uposts.domain.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class RegistrationResp {
 
-    private String nickname;
-    private String encryptPassword;
     private String accessToken;
 }

@@ -1,6 +1,6 @@
-package com.mycompany.uposts.domen.response.error;
+package com.mycompany.uposts.domain.response.error;
 
-import com.mycompany.uposts.domen.response.Response;
+import com.mycompany.uposts.domain.response.Response;
 
 import lombok.Builder;
 import lombok.Data;

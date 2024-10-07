@@ -1,15 +1,17 @@
-package com.mycompany.uposts.domen.response.exception;
+package com.mycompany.uposts.domain.response.exception;
 
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
-import com.mycompany.uposts.domen.constant.Code;
+
+import com.mycompany.uposts.domain.constant.Code;
 
 @Data
 @Builder
 public class CommonException extends RuntimeException {
 
     private final Code code;
-    private final String message;
+    private final String userMessage;
+    private final String techMessage;
     private final HttpStatus httpStatus;
 }
