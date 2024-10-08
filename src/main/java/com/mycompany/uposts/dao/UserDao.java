@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Service
-public interface Dao {
+public interface UserDao {
 
     List<String> getTagsByPostId(long postId);
     

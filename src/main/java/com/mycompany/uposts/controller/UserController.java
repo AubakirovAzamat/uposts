@@ -5,20 +5,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.mycompany.uposts.domain.api.LoginReq;
-import com.mycompany.uposts.domain.api.PublicPostReq;
-import com.mycompany.uposts.domain.api.RegistrationReq;
+import com.mycompany.uposts.domain.api.user.login.LoginReq;
+import com.mycompany.uposts.domain.api.user.publicPost.PublicPostReq;
+import com.mycompany.uposts.domain.api.user.registration.RegistrationReq;
 import com.mycompany.uposts.domain.response.Response;
-import com.mycompany.uposts.service.PostService;
+import com.mycompany.uposts.service.UserService;
 
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("post-service-public")
-public class Controller {
+public class UserController {
 
-    private final PostService postService;
+    private final UserService postService;
 
 
     @GetMapping("/hello")

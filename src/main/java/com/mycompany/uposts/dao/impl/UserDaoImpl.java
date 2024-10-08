@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.mycompany.uposts.dao.Dao;
+import com.mycompany.uposts.dao.UserDao;
 import com.mycompany.uposts.domain.constant.Code;
 import com.mycompany.uposts.domain.dto.User;
 import com.mycompany.uposts.domain.entity.Post;
@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 @Repository
 @Transactional
-public class DaoImpl extends JdbcDaoSupport implements Dao {
+public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 
     @Autowired
     private DataSource dataSource;

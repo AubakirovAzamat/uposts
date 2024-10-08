@@ -1,4 +1,4 @@
-package com.mycompany.uposts.domain.api;
+package com.mycompany.uposts.domain.api.user.publicPost;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

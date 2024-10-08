@@ -1,4 +1,4 @@
-package com.mycompany.uposts.domain.api;
+package com.mycompany.uposts.domain.api.user.getMyPost;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +10,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostResp {
-    private long id;
-    private String text;
-    private String timeInsert;
-    private List<String> tags;
+public class GetMyPostsResp {
+    private List<PostResp> posts;
 }
