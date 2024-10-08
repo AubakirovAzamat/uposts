@@ -15,7 +15,7 @@ import com.mycompany.uposts.service.UserService;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("post-service-public")
+@RequestMapping("post-service-public/user")
 public class UserController {
 
     private final UserService postService;
