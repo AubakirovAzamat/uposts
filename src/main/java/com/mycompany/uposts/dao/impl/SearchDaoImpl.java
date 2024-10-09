@@ -6,8 +6,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import com.mycompany.uposts.dao.SearchDao;
+import com.mycompany.uposts.domain.api.search.searchTags.TagResp;
+import com.mycompany.uposts.domain.api.search.searchTags.TagRespRowMapper;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import java.util.List;
 
 @Slf4j
 @Repository
@@ -21,5 +25,27 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
     @PostConstruct
     private void initialize() {
         setDataSource(dataSource);
+    }
+
+    @Override
+    public List<TagResp> searchTags(String partTag) {
+        return jdbcTemplate.query("SELECT id, text " +
+                        "FROM (" +
+                        "         SELECT tag.id, text, count(tag.id) AS c " +
+                        "         FROM tag " +
+                        "                  JOIN phrase_tag pt ON tag.id = pt.tag_id " +
+                        "         WHERE text LIKE CONCAT(LOWER(?), '%') " +
+                        "         GROUP BY tag.id " +
+                        "         ORDER BY count(tag.id) DESC) t1 " +
+                        "UNION " +
+                        "SELECT id, text " +
+                        "FROM (" +
+                        "         SELECT tag.id, text, count(tag.id) AS c " +
+                        "         FROM tag " +
+                        "                  JOIN phrase_tag pt ON tag.id = pt.tag_id " +
+                        "         WHERE text LIKE CONCAT('%', LOWER(?), '%') " +
+                        "         GROUP BY tag.id " +
+                        "         ORDER BY count(tag.id) DESC) t2;"
+                ,  new TagRespRowMapper(), partTag, partTag);
     }
 }
