@@ -1,12 +1,11 @@
-package com.mycompany.uposts.domain.api.user.getMyPost;
+package com.mycompany.uposts.domain.api.search.searchPostsByTag;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.List;
-
 import com.mycompany.uposts.domain.api.common.TagResp;
+import java.util.List;
 
 @Data
 @Builder
@@ -14,6 +13,8 @@ import com.mycompany.uposts.domain.api.common.TagResp;
 @AllArgsConstructor
 public class PostResp {
     private long postId;
+    private long userId;
+    private String nickname;
     private String text;
     private String timeInsert;
     private List<TagResp> tags;

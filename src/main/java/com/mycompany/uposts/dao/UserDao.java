@@ -7,12 +7,9 @@ import com.mycompany.uposts.domain.entity.Post;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-
 @Service
 public interface UserDao {
 
-    List<String> getTagsByPostId(long postId);
-    
     List<Post> getPostsByUserId(long userId);
 
     void addPostTag(long postId, String tag);
@@ -20,8 +17,6 @@ public interface UserDao {
     void addTag(String tag);
 
     long addPost(long userId, String text);
-
-    long getUserIdByToken(String accessToken);
 
     String getAccessToken(User user);
 

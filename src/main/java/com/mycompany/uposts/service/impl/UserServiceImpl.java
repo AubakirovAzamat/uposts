@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import com.mycompany.uposts.dao.CommonDao;
 import com.mycompany.uposts.dao.UserDao;
 import com.mycompany.uposts.domain.api.*;
+import com.mycompany.uposts.domain.api.common.TagResp;
 import com.mycompany.uposts.domain.api.user.getMyPost.GetMyPostsResp;
 import com.mycompany.uposts.domain.api.user.getMyPost.PostResp;
 import com.mycompany.uposts.domain.api.user.login.LoginReq;
@@ -37,17 +39,18 @@ public class UserServiceImpl implements UserService {
 
     private final ValidationUtils validationUtils;
     private final EncryptUtils encryptUtils;
+    private final CommonDao commonDao;
     private final UserDao userDao;
 
     @Override
     public ResponseEntity<Response> getMyPosts(String accessToken) {
-        long userId = userDao.getUserIdByToken(accessToken);
+        long userId = commonDao.getUserIdByToken(accessToken);
         List<Post> postList = userDao.getPostsByUserId(userId);
         List<PostResp> postRespList = new ArrayList<>();
         for (Post post : postList) {
-            List<String> tags = userDao.getTagsByPostId(post.getId());
+            List<TagResp> tags = commonDao.getTagsByPostId(post.getId());
             postRespList.add(PostResp.builder()
-                    .id(post.getId())
+                    .postId(post.getId())
                     .text(post.getText())
                     .timeInsert(post.getTimeInsert())
                     .tags(tags).build());
@@ -60,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
         validationUtils.validationRequest(req);
 
-        long userId = userDao.getUserIdByToken(accessToken);
+        long userId = commonDao.getUserIdByToken(accessToken);
         long postId = userDao.addPost(userId, req.getText());
         log.info("userId: {}, postId: {}", userId, postId);
 

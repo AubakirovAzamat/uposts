@@ -1,6 +1,7 @@
-package com.mycompany.uposts.domain.api.search.searchTags;
+package com.mycompany.uposts.domain.api.common;
 
 import org.springframework.jdbc.core.RowMapper;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -8,7 +9,7 @@ public class TagRespRowMapper implements RowMapper<TagResp> {
     @Override
     public TagResp mapRow(ResultSet row, int rowNum) throws SQLException {
         return TagResp.builder()
-                .id(row.getLong("id"))
+                .tagId(row.getLong("id"))
                 .text(row.getString("text"))
                 .build();
     }

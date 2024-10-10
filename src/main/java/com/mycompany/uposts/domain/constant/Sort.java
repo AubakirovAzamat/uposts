@@ -1,0 +1,16 @@
+package com.mycompany.uposts.domain.constant;
+
+public enum Sort {
+    RANDOM("RAND()"),
+    TIME_INSERT("post.time_insert DESC");
+
+    private final String value;
+
+    Sort(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+}

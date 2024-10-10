@@ -37,10 +37,6 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
         setDataSource(dataSource);
     }
 
-    @Override
-    public List<String> getTagsByPostId(long postId) {
-        return jdbcTemplate.queryForList("SELECT text FROM tag WHERE id IN (SELECT tag_id FROM post_tag WHERE post_id = ?);", String.class, postId);
-    }
 
 
     @Override
@@ -75,16 +71,6 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 
 
 
-    @Override
-    public long getUserIdByToken(String accessToken) {
-
-        try {
-            return jdbcTemplate.queryForObject("SELECT id FROM user WHERE access_token = ?;", Long.class, accessToken);
-        } catch (EmptyResultDataAccessException ex) {
-            log.error(ex.toString());
-            throw CommonException.builder().code(Code.AUTHORIZATION_ERROR).userMessage("Ошибка авторизации").httpStatus(HttpStatus.BAD_REQUEST).build();
-        }
-    }
 
 
 

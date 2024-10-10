@@ -1,4 +1,4 @@
-package com.mycompany.uposts.domain.api.search.searchTags;
+package com.mycompany.uposts.domain.api.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TagResp {
-    private long id;
+    private long tagId;
     private String text;
 }
