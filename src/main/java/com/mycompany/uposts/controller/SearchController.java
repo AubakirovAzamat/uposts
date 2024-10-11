@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.mycompany.uposts.domain.api.search.searchPostsByPartWord.SearchPostsByPartWordReq;
 import com.mycompany.uposts.domain.api.search.searchPostsByTag.SearchPostsByTagReq;
 import com.mycompany.uposts.domain.api.search.searchTags.SearchTagsReq;
 import com.mycompany.uposts.domain.response.Response;
@@ -29,6 +31,14 @@ public class SearchController {
     public ResponseEntity<Response> searchPostsByTag(@RequestHeader String accessToken, @RequestBody final SearchPostsByTagReq req) {
         log.info("START endpoint searchPostsByTag , accessToken: {}, request: {}", accessToken, req);
         ResponseEntity<Response> resp = searchService.searchPostsByTag(req, accessToken);
+        log.info("END endpoint searchPostsByTag , response: {}", resp);
+        return resp;
+    }
+
+    @PostMapping("/searchPostsByPartWord")
+    public ResponseEntity<Response> searchPostsByPartWord(@RequestHeader String accessToken, @RequestBody final SearchPostsByPartWordReq req) {
+        log.info("START endpoint searchPostsByPartWord, accessToken: {}, request: {}", accessToken, req);
+        ResponseEntity<Response> resp = searchService.searchPostsByPartWord(req, accessToken);
         log.info("END endpoint searchPostsByTag , response: {}", resp);
         return resp;
     }

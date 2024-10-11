@@ -3,9 +3,6 @@ package com.mycompany.uposts.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.mycompany.uposts.domain.constant.Code;
 import com.mycompany.uposts.domain.response.error.Error;
@@ -28,7 +25,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             ErrorResponse errorResponse = ErrorResponse.builder()
                     .error(Error.builder()
                             .code(Code.AUTHORIZATION_ERROR)
-                            .userMessage("Ошибка авторизации, выброшенная из фильтра")
+                            .userMessage("Ошибка авторизации")
                             .build())
                     .build();
             log.info("Отсутствует header AccessToken. ErrorResponse: {}", errorResponse);

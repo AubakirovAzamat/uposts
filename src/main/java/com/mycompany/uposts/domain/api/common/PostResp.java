@@ -1,10 +1,10 @@
-package com.mycompany.uposts.domain.api.search.searchPostsByTag;
+package com.mycompany.uposts.domain.api.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.mycompany.uposts.domain.api.common.TagResp;
+
 import java.util.List;
 
 @Data

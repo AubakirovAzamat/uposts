@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.uposts.dao.CommonDao;
 import com.mycompany.uposts.dao.SearchDao;
+import com.mycompany.uposts.domain.api.common.PostResp;
 import com.mycompany.uposts.domain.api.common.TagResp;
-import com.mycompany.uposts.domain.api.search.searchPostsByTag.PostResp;
+import com.mycompany.uposts.domain.api.search.searchPostsByPartWord.SearchPostsByPartWordReq;
 import com.mycompany.uposts.domain.api.search.searchPostsByTag.SearchPostsByTagReq;
 import com.mycompany.uposts.domain.api.search.searchPostsByTag.SearchPostsByTagResp;
 import com.mycompany.uposts.domain.api.search.searchTags.SearchTagsReq;
@@ -44,6 +45,18 @@ public class SearchServiceImpl implements SearchService {
         validationUtils.validationRequest(req);
         commonDao.getUserIdByToken(accessToken);
         List<PostResp> posts = searchDao.searchPostsByTag(req);
+        for (PostResp postResp : posts) {
+            List<TagResp> tags = commonDao.getTagsByPostId(postResp.getPostId());
+            postResp.setTags(tags);
+        }
+        return new ResponseEntity<>(SuccessResponse.builder().data(SearchPostsByTagResp.builder().posts(posts).build()).build(), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Response> searchPostsByPartWord(SearchPostsByPartWordReq req, String accessToken) {
+        validationUtils.validationRequest(req);
+        commonDao.getUserIdByToken(accessToken);
+        List<PostResp> posts = searchDao.searchPostsByPartWord(req);
         for (PostResp postResp : posts) {
             List<TagResp> tags = commonDao.getTagsByPostId(postResp.getPostId());
             postResp.setTags(tags);

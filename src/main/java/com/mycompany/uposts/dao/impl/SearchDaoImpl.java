@@ -7,10 +7,11 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.mycompany.uposts.dao.SearchDao;
+import com.mycompany.uposts.domain.api.common.PostResp;
+import com.mycompany.uposts.domain.api.common.PostRespRowMapper;
 import com.mycompany.uposts.domain.api.common.TagResp;
 import com.mycompany.uposts.domain.api.common.TagRespRowMapper;
-import com.mycompany.uposts.domain.api.search.searchPostsByTag.PostResp;
-import com.mycompany.uposts.domain.api.search.searchPostsByTag.PostRespRowMapper;
+import com.mycompany.uposts.domain.api.search.searchPostsByPartWord.SearchPostsByPartWordReq;
 import com.mycompany.uposts.domain.api.search.searchPostsByTag.SearchPostsByTagReq;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -59,5 +60,14 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
                         "         GROUP BY tag.id " +
                         "         ORDER BY count(tag.id) DESC) t2;"
                 ,  new TagRespRowMapper(), partTag, partTag);
+    }
+
+    @Override
+    public List<PostResp> searchPostsByPartWord(SearchPostsByPartWordReq req) {
+        return jdbcTemplate.query("SELECT post.id AS post_id, u.id AS user_id, u.nickname, post.text, post.time_insert " +
+                "FROM post " +
+                "         JOIN user u on post.user_id = u.id " +
+                "WHERE post.text LIKE CONCAT('%',?,'%') " +
+                "ORDER BY " + req.getSort().getValue() + ";", new PostRespRowMapper(), req.getPartWord());
     }
 }

@@ -1,6 +1,7 @@
-package com.mycompany.uposts.domain.api.search.searchPostsByTag;
+package com.mycompany.uposts.domain.api.common;
 
 import org.springframework.jdbc.core.RowMapper;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

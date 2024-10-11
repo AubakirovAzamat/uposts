@@ -2,6 +2,8 @@ package com.mycompany.uposts.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -49,11 +51,9 @@ public class UserServiceImpl implements UserService {
         List<PostResp> postRespList = new ArrayList<>();
         for (Post post : postList) {
             List<TagResp> tags = commonDao.getTagsByPostId(post.getId());
-            postRespList.add(PostResp.builder()
-                    .postId(post.getId())
-                    .text(post.getText())
-                    .timeInsert(post.getTimeInsert())
-                    .tags(tags).build());
+            PostResp postResp = new ModelMapper().map(post, PostResp.class);
+            postResp.setTags(tags);
+            postRespList.add(postResp);
         }
         return new ResponseEntity<>(SuccessResponse.builder().data(GetMyPostsResp.builder().posts(postRespList).build()).build(), HttpStatus.OK);
     }
