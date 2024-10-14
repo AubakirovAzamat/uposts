@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.mycompany.uposts.domain.api.search.searchPostsByPartWord.SearchPostsByPartWordReq;
 import com.mycompany.uposts.domain.api.search.searchPostsByTag.SearchPostsByTagReq;
 import com.mycompany.uposts.domain.api.search.searchTags.SearchTagsReq;
+import com.mycompany.uposts.domain.api.search.searchUsersByPartNickname.SearchUsersByPartNicknameReq;
 import com.mycompany.uposts.domain.response.Response;
 import com.mycompany.uposts.service.SearchService;
 
@@ -40,6 +41,14 @@ public class SearchController {
         log.info("START endpoint searchPostsByPartWord, accessToken: {}, request: {}", accessToken, req);
         ResponseEntity<Response> resp = searchService.searchPostsByPartWord(req, accessToken);
         log.info("END endpoint searchPostsByTag , response: {}", resp);
+        return resp;
+    }
+
+    @PostMapping("/searchUsersByPartNickname")
+    public ResponseEntity<Response> searchUsersByPartNickname(@RequestHeader String accessToken, @RequestBody final SearchUsersByPartNicknameReq req) {
+        log.info("START endpoint searchUsersByPartNickname  accessToken: {}, request: {}", accessToken, req);
+        ResponseEntity<Response> resp = searchService.searchUsersByPartNickname(req, accessToken);
+        log.info("END endpoint searchUsersByPartNickname, response: {}", resp);
         return resp;
     }
 }

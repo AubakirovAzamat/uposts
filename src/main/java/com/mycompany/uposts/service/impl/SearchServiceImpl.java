@@ -15,6 +15,7 @@ import com.mycompany.uposts.domain.api.search.searchPostsByTag.SearchPostsByTagR
 import com.mycompany.uposts.domain.api.search.searchPostsByTag.SearchPostsByTagResp;
 import com.mycompany.uposts.domain.api.search.searchTags.SearchTagsReq;
 import com.mycompany.uposts.domain.api.search.searchTags.SearchTagsResp;
+import com.mycompany.uposts.domain.api.search.searchUsersByPartNickname.SearchUsersByPartNicknameReq;
 import com.mycompany.uposts.domain.response.Response;
 import com.mycompany.uposts.domain.response.SuccessResponse;
 import com.mycompany.uposts.service.SearchService;
@@ -62,6 +63,13 @@ public class SearchServiceImpl implements SearchService {
             postResp.setTags(tags);
         }
         return new ResponseEntity<>(SuccessResponse.builder().data(SearchPostsByTagResp.builder().posts(posts).build()).build(), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Response> searchUsersByPartNickname(SearchUsersByPartNicknameReq req, String accessToken) {
+        validationUtils.validationRequest(req);
+        commonDao.getUserIdByToken(accessToken);
+        return new ResponseEntity<>(SuccessResponse.builder().data(searchDao.searchUsersByPartNickname(req.getPartNickname())).build(), HttpStatus.OK);
     }
 
 }

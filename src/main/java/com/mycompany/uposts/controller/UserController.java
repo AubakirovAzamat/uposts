@@ -11,7 +11,6 @@ import com.mycompany.uposts.domain.api.user.registration.RegistrationReq;
 import com.mycompany.uposts.domain.response.Response;
 import com.mycompany.uposts.service.UserService;
 
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -19,7 +18,6 @@ import com.mycompany.uposts.service.UserService;
 public class UserController {
 
     private final UserService postService;
-
 
     @GetMapping("/hello")
     public String hello() {
@@ -29,7 +27,8 @@ public class UserController {
     }
 
     @PostMapping("/publicPost")
-    public ResponseEntity<Response> publicPost(@RequestHeader final String accessToken, @RequestBody final PublicPostReq req) {
+    public ResponseEntity<Response> publicPost(@RequestHeader final String accessToken,
+            @RequestBody final PublicPostReq req) {
 
         log.info("START endpoint publicPost, accessToken: {}, request: {}", accessToken, req);
         ResponseEntity<Response> resp = postService.publicPost(req, accessToken);
@@ -45,7 +44,6 @@ public class UserController {
         log.info("END endpoint login, response: {}", resp);
         return resp;
     }
-
 
     @PostMapping("/registration")
     public ResponseEntity<Response> registration(@RequestBody final RegistrationReq req) {
@@ -64,4 +62,3 @@ public class UserController {
         return resp;
     }
 }
-

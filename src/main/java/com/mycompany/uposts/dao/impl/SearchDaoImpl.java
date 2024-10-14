@@ -11,6 +11,8 @@ import com.mycompany.uposts.domain.api.common.PostResp;
 import com.mycompany.uposts.domain.api.common.PostRespRowMapper;
 import com.mycompany.uposts.domain.api.common.TagResp;
 import com.mycompany.uposts.domain.api.common.TagRespRowMapper;
+import com.mycompany.uposts.domain.api.common.UserResp;
+import com.mycompany.uposts.domain.api.common.UserRespRowMapper;
 import com.mycompany.uposts.domain.api.search.searchPostsByPartWord.SearchPostsByPartWordReq;
 import com.mycompany.uposts.domain.api.search.searchPostsByTag.SearchPostsByTagReq;
 import javax.annotation.PostConstruct;
@@ -38,6 +40,22 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
                 "         JOIN user u on post.user_id = u.id " +
                 "WHERE post.id IN (SELECT post_id FROM post_tag WHERE tag_id = ?) " +
                 "ORDER BY " + req.getSort().getValue() + ";", new PostRespRowMapper(), req.getTagId());
+    }
+
+    @Override
+    public List<UserResp> searchUsersByPartNickname(String partNickname) {
+        return jdbcTemplate.query("SELECT id, nickname " +
+                        "FROM (" +
+                        "         SELECT id, nickname " +
+                        "         FROM user " +
+                        "         WHERE nickname LIKE CONCAT(?, '%')) t1 " +
+                        "UNION " +
+                        "SELECT id, nickname " +
+                        "FROM (" +
+                        "         SELECT id, nickname " +
+                        "         FROM user " +
+                        "         WHERE nickname LIKE CONCAT('%', ?, '%')) t2;"
+                , new UserRespRowMapper(), partNickname, partNickname);
     }
 
     @Override
