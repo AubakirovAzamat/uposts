@@ -48,4 +48,9 @@ public class CommonDaoImpl extends JdbcDaoSupport implements CommonDao {
                     .httpStatus(HttpStatus.BAD_REQUEST).build();
         }
     }
+
+    @Override
+    public void testSchedulerLock(String instanceName) {
+        jdbcTemplate.update("INSERT INTO test_scheduler_lock(instance_name) VALUES (?);", instanceName);
+    }
 }
