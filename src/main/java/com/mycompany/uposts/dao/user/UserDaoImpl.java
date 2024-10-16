@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mycompany.uposts.domain.constant.Code;
 import com.mycompany.uposts.domain.dto.User;
-import com.mycompany.uposts.domain.entity.Post;
-import com.mycompany.uposts.domain.entity.PostRowMapper;
 import com.mycompany.uposts.domain.response.exception.CommonException;
+import com.mycompany.uposts.domain.api.common.PostResp;
+import com.mycompany.uposts.domain.api.common.PostRespRowMapper;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -40,8 +40,12 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 
 
     @Override
-    public List<Post> getPostsByUserId(long userId) {
-        return jdbcTemplate.query("SELECT * FROM post WHERE user_id = ? ORDER BY time_insert DESC;", new PostRowMapper(), userId);
+    public List<PostResp> getPostsByUserId(long userId) {
+        return jdbcTemplate.query("SELECT post.id AS post_id, u.id AS user_id, u.nickname, post.text, post.time_insert " +
+                "FROM post " +
+                "         JOIN user u on post.user_id = u.id " +
+                "WHERE user_id = ? " +
+                "ORDER BY time_insert DESC;", new PostRespRowMapper(), userId);
     }
 
 

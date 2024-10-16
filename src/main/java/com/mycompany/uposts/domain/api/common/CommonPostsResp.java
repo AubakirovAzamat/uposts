@@ -1,4 +1,4 @@
-package com.mycompany.uposts.domain.api.user.getMyPost;
+package com.mycompany.uposts.domain.api.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +10,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetMyPostsResp {
+public class CommonPostsResp  {
     private List<PostResp> posts;
 }
