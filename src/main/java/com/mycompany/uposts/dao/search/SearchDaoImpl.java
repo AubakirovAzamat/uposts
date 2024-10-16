@@ -1,4 +1,4 @@
-package com.mycompany.uposts.dao.impl;
+package com.mycompany.uposts.dao.search;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.mycompany.uposts.dao.SearchDao;
+
 import com.mycompany.uposts.domain.api.common.PostResp;
 import com.mycompany.uposts.domain.api.common.PostRespRowMapper;
 import com.mycompany.uposts.domain.api.common.TagResp;

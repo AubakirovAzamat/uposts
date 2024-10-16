@@ -1,4 +1,4 @@
-package com.mycompany.uposts.service;
+package com.mycompany.uposts.service.search;
 
 import org.springframework.http.ResponseEntity;
 

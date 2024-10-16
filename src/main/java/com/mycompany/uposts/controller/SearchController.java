@@ -10,7 +10,7 @@ import com.mycompany.uposts.domain.api.search.searchPostsByTag.SearchPostsByTagR
 import com.mycompany.uposts.domain.api.search.searchTags.SearchTagsReq;
 import com.mycompany.uposts.domain.api.search.searchUsersByPartNickname.SearchUsersByPartNicknameReq;
 import com.mycompany.uposts.domain.response.Response;
-import com.mycompany.uposts.service.SearchService;
+import com.mycompany.uposts.service.search.SearchService;
 
 @Slf4j
 @RestController

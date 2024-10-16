@@ -1,4 +1,4 @@
-package com.mycompany.uposts.dao.impl.communication;
+package com.mycompany.uposts.dao.communication;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.mycompany.uposts.dao.communication.SubscriptionDao;
+
+import com.mycompany.uposts.domain.api.common.PostResp;
+import com.mycompany.uposts.domain.api.common.PostRespRowMapper;
 import com.mycompany.uposts.domain.api.common.UserResp;
 import com.mycompany.uposts.domain.api.common.UserRespRowMapper;
 import com.mycompany.uposts.domain.constant.Code;
@@ -66,5 +68,18 @@ public class SubscriptionDaoImpl extends JdbcDaoSupport implements SubscriptionD
             throw CommonException.builder().code(Code.PUBLISHER_NOT_FOUND)
                     .userMessage("Не найден пользователь для подписки").httpStatus(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    @Override
+    public List<PostResp> getMyPublishersPosts(long userId, int from, int limit) {
+        return jdbcTemplate.query("SELECT post.id AS post_id, post.text, post.time_insert, post.user_id, u.nickname AS nickname " +
+                "FROM post " +
+                "         JOIN user u on u.id = post.user_id " +
+                "WHERE user_id IN (" +
+                "    SELECT pub_user_id " +
+                "    FROM subscription " +
+                "    WHERE sub_user_id = ?) " +
+                "ORDER BY post.time_insert DESC " +
+                "LIMIT ?,?;", new PostRespRowMapper(), userId, from, limit);
     }
 }

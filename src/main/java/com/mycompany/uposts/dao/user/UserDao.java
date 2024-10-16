@@ -1,4 +1,4 @@
-package com.mycompany.uposts.dao;
+package com.mycompany.uposts.dao.user;
 
 import com.mycompany.uposts.domain.dto.User;
 import com.mycompany.uposts.domain.dto.User;

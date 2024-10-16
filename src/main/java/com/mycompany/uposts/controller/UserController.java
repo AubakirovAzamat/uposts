@@ -9,7 +9,7 @@ import com.mycompany.uposts.domain.api.user.login.LoginReq;
 import com.mycompany.uposts.domain.api.user.publicPost.PublicPostReq;
 import com.mycompany.uposts.domain.api.user.registration.RegistrationReq;
 import com.mycompany.uposts.domain.response.Response;
-import com.mycompany.uposts.service.UserService;
+import com.mycompany.uposts.service.user.UserService;
 
 @Slf4j
 @RestController

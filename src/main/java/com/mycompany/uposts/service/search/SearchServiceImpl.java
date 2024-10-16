@@ -1,4 +1,4 @@
-package com.mycompany.uposts.service.impl;
+package com.mycompany.uposts.service.search;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.uposts.dao.CommonDao;
-import com.mycompany.uposts.dao.SearchDao;
+import com.mycompany.uposts.dao.common.CommonDao;
+import com.mycompany.uposts.dao.search.SearchDao;
 import com.mycompany.uposts.domain.api.common.PostResp;
 import com.mycompany.uposts.domain.api.common.TagResp;
 import com.mycompany.uposts.domain.api.search.searchPostsByPartWord.SearchPostsByPartWordReq;
@@ -18,7 +18,6 @@ import com.mycompany.uposts.domain.api.search.searchTags.SearchTagsResp;
 import com.mycompany.uposts.domain.api.search.searchUsersByPartNickname.SearchUsersByPartNicknameReq;
 import com.mycompany.uposts.domain.response.Response;
 import com.mycompany.uposts.domain.response.SuccessResponse;
-import com.mycompany.uposts.service.SearchService;
 import com.mycompany.uposts.util.ValidationUtils;
 import java.util.List;
 

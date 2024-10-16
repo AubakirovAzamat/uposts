@@ -1,4 +1,4 @@
-package com.mycompany.uposts.service.impl;
+package com.mycompany.uposts.service.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import com.mycompany.uposts.dao.CommonDao;
-import com.mycompany.uposts.dao.UserDao;
+import com.mycompany.uposts.dao.common.CommonDao;
+import com.mycompany.uposts.dao.user.UserDao;
 import com.mycompany.uposts.domain.api.*;
 import com.mycompany.uposts.domain.api.common.TagResp;
 import com.mycompany.uposts.domain.api.user.getMyPost.GetMyPostsResp;
@@ -26,7 +26,6 @@ import com.mycompany.uposts.domain.response.Response;
 import com.mycompany.uposts.domain.response.SuccessResponse;
 import com.mycompany.uposts.domain.response.exception.CommonException;
 import com.mycompany.uposts.domain.entity.Post;
-import com.mycompany.uposts.service.UserService;
 import com.mycompany.uposts.util.EncryptUtils;
 import com.mycompany.uposts.util.ValidationUtils;
 

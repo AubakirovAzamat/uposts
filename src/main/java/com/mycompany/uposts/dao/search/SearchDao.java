@@ -1,4 +1,4 @@
-package com.mycompany.uposts.dao;
+package com.mycompany.uposts.dao.search;
 
 import com.mycompany.uposts.domain.api.common.PostResp;
 import com.mycompany.uposts.domain.api.common.TagResp;

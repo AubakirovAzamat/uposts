@@ -5,7 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import com.mycompany.uposts.dao.CommonDao;
+
+import com.mycompany.uposts.dao.common.CommonDao;
 
 @Slf4j
 @Component
@@ -14,7 +15,7 @@ public class Job {
     private final CommonDao commonDao;
     private static int c = 0;
 
-    @Scheduled(cron = "*/3 * * * * *")
+//    @Scheduled(cron = "*/3 * * * * *")
     @SchedulerLock(name = "job")
     public void job() throws InterruptedException {
         log.info("first_instance: {}", ++c);

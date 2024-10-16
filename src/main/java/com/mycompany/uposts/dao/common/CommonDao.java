@@ -1,4 +1,4 @@
-package com.mycompany.uposts.dao;
+package com.mycompany.uposts.dao.common;
 
 import org.springframework.stereotype.Service;
 import com.mycompany.uposts.domain.api.common.TagResp;

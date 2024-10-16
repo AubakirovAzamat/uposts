@@ -1,4 +1,4 @@
-package com.mycompany.uposts.dao.impl;
+package com.mycompany.uposts.dao.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.mycompany.uposts.dao.UserDao;
+
 import com.mycompany.uposts.domain.constant.Code;
 import com.mycompany.uposts.domain.dto.User;
 import com.mycompany.uposts.domain.entity.Post;
