@@ -10,6 +10,10 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommonPostsResp {
-    private List<PostResp> posts;
+public class CommentResp {
+    private long userId;
+    private String nickname;
+    private long commentId;
+    private String text;
+    private String timeInsert;
 }

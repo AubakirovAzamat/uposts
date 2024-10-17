@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.mycompany.uposts.domain.api.user.common.AuthorizationReq;
@@ -13,7 +15,7 @@ import com.mycompany.uposts.domain.api.user.common.AuthorizationReq;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistrationReq {
-
+    @Valid
     @NotNull(message = "authorization должен быть заполнен")
     private AuthorizationReq authorization;
 }

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.mycompany.uposts.dao.common.CommonDao;
 import com.mycompany.uposts.dao.communication.ReactionDao;
+import com.mycompany.uposts.domain.api.communication.comment.CommentPostReq;
 import com.mycompany.uposts.domain.response.Response;
 import com.mycompany.uposts.domain.response.SuccessResponse;
 import com.mycompany.uposts.util.ValidationUtils;
@@ -32,6 +33,14 @@ public class ReactionServiceImpl implements ReactionService {
         validationUtils.validationDecimalMin("postId", postId, 1);
         long userId = commonDao.getUserIdByToken(accessToken);
         reactionDao.likePost(userId, postId);
+        return new ResponseEntity<>(SuccessResponse.builder().build(), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Response> commentPost(String accessToken, CommentPostReq req) {
+        validationUtils.validationRequest(req);
+        long userId = commonDao.getUserIdByToken(accessToken);
+        reactionDao.commentPost(userId, req);
         return new ResponseEntity<>(SuccessResponse.builder().build(), HttpStatus.OK);
     }
 }

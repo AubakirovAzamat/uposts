@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import com.mycompany.uposts.domain.api.communication.comment.CommentPostReq;
 import com.mycompany.uposts.domain.response.Response;
 import com.mycompany.uposts.service.communication.ReactionService;
 
@@ -29,6 +31,14 @@ public class ReactionController {
         log.info("START endpoint likePost  accessToken: {}, postId: {}", accessToken, postId);
         ResponseEntity<Response> resp = reactionService.likePost(accessToken, postId);
         log.info("END endpoint likePost, response: {}", resp);
+        return resp;
+    }
+
+    @PostMapping("/commentPost")
+    public ResponseEntity<Response> commentPost(@RequestHeader String accessToken, @RequestBody final CommentPostReq req) {
+        log.info("START endpoint commentPost  accessToken: {}, req: {}", accessToken, req);
+        ResponseEntity<Response> resp = reactionService.commentPost(accessToken, req);
+        log.info("END endpoint commentPost, response: {}", resp);
         return resp;
     }
 }

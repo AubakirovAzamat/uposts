@@ -12,11 +12,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostResp {
+    private long countLikes;
     private long postId;
     private long userId;
     private String nickname;
     private String text;
     private String timeInsert;
     private List<TagResp> tags;
-    private long countLikes;
+    private List<CommentResp> comments;
 }

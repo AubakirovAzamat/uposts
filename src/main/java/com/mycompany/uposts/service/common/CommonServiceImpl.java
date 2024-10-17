@@ -17,7 +17,8 @@ public class CommonServiceImpl implements CommonService {
     public void postEnrichment(List<PostResp> posts) {
         for (PostResp postResp : posts) {
             postResp.setTags(commonDao.getTagsByPostId(postResp.getPostId()));
-            postResp.setCountLikes(commonDao.getCountLikes(postResp.getPostId()));
+            postResp.setCountLikes(commonDao.getCountLikesByPostId(postResp.getPostId()));
+            postResp.setComments(commonDao.getCommentsByPostId(postResp.getPostId()));
         }
     }
 }

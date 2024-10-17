@@ -6,6 +6,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.mycompany.uposts.domain.api.communication.comment.CommentPostReq;
+
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
@@ -31,5 +34,10 @@ public class ReactionDaoImpl extends JdbcDaoSupport implements ReactionDao {
     @Override
     public void likePost(long userId, long postId) {
         jdbcTemplate.update("INSERT IGNORE INTO like_post(post_id, user_id) VALUES (?,?);", postId, userId);
+    }
+
+    @Override
+    public void commentPost(long userId, CommentPostReq req) {
+        jdbcTemplate.update("INSERT IGNORE INTO comment(user_id, post_id, text) VALUES (?,?,?);", userId, req.getPostId(), req.getText());
     }
 }
