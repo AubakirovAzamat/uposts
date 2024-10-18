@@ -1,4 +1,4 @@
-package com.mycompany.uposts.domain.api.communication.subscription;
+package com.mycompany.uposts.domain.api.communication.subscribe.subscription;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

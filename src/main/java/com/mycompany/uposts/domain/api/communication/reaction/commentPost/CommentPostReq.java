@@ -1,4 +1,4 @@
-package com.mycompany.uposts.domain.api.communication.comment;
+package com.mycompany.uposts.domain.api.communication.reaction.commentPost;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

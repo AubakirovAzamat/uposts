@@ -2,7 +2,7 @@ package com.mycompany.uposts.service.communication;
 
 import org.springframework.http.ResponseEntity;
 
-import com.mycompany.uposts.domain.api.communication.comment.CommentPostReq;
+import com.mycompany.uposts.domain.api.communication.reaction.commentPost.CommentPostReq;
 import com.mycompany.uposts.domain.response.Response;
 
 public interface ReactionService {
@@ -11,4 +11,6 @@ public interface ReactionService {
     ResponseEntity<Response> likePost(String accessToken, long postId);
 
     ResponseEntity<Response> commentPost(String accessToken, CommentPostReq req);
+
+    ResponseEntity<Response> deleteCommentPost(String accessToken, long commentId);
 }

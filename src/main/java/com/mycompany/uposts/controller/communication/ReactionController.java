@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.mycompany.uposts.domain.api.communication.comment.CommentPostReq;
+import com.mycompany.uposts.domain.api.communication.reaction.commentPost.CommentPostReq;
 import com.mycompany.uposts.domain.response.Response;
 import com.mycompany.uposts.service.communication.ReactionService;
 
@@ -18,7 +18,7 @@ import com.mycompany.uposts.service.communication.ReactionService;
 public class ReactionController {
     private final ReactionService reactionService;
 
-    @GetMapping("/deleteLikePost/{postId}")
+    @DeleteMapping("/deleteLikePost/{postId}")
     public ResponseEntity<Response> deleteLikePost(@RequestHeader String accessToken, @PathVariable long postId) {
         log.info("START endpoint deleteLikePost  accessToken: {}, postId: {}", accessToken, postId);
         ResponseEntity<Response> resp = reactionService.deleteLikePost(accessToken, postId);
@@ -26,7 +26,7 @@ public class ReactionController {
         return resp;
     }
 
-    @GetMapping("/likePost/{postId}")
+    @PostMapping("/likePost/{postId}")
     public ResponseEntity<Response> likePost(@RequestHeader String accessToken, @PathVariable long postId) {
         log.info("START endpoint likePost  accessToken: {}, postId: {}", accessToken, postId);
         ResponseEntity<Response> resp = reactionService.likePost(accessToken, postId);
@@ -35,10 +35,20 @@ public class ReactionController {
     }
 
     @PostMapping("/commentPost")
-    public ResponseEntity<Response> commentPost(@RequestHeader String accessToken, @RequestBody final CommentPostReq req) {
+    public ResponseEntity<Response> commentPost(@RequestHeader String accessToken,
+            @RequestBody final CommentPostReq req) {
         log.info("START endpoint commentPost  accessToken: {}, req: {}", accessToken, req);
         ResponseEntity<Response> resp = reactionService.commentPost(accessToken, req);
         log.info("END endpoint commentPost, response: {}", resp);
+        return resp;
+    }
+
+    @DeleteMapping("/deleteCommentPost/{commentId}")
+    public ResponseEntity<Response> deleteCommentPost(@RequestHeader String accessToken,
+            @PathVariable long commentId) {
+        log.info("START endpoint deleteCommentPost  accessToken: {}, commentId: {}", accessToken, commentId);
+        ResponseEntity<Response> resp = reactionService.deleteCommentPost(accessToken, commentId);
+        log.info("END endpoint deleteCommentPost, response: {}", resp);
         return resp;
     }
 }
