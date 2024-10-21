@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.mycompany.uposts.domain.api.common.PostRespRowMapper;
+import com.mycompany.uposts.domain.api.common.UserResp;
+import com.mycompany.uposts.domain.api.common.UserRespRowMapper;
 import com.mycompany.uposts.domain.api.communication.reaction.commentPost.CommentPostReq;
 import com.mycompany.uposts.domain.dto.WhoseComment;
 import com.mycompany.uposts.domain.dto.WhoseCommentRowMapper;
@@ -17,6 +19,7 @@ import com.mycompany.uposts.domain.response.exception.CommonException;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static com.mycompany.uposts.domain.constant.Code.COMMENT_NOT_FOUND;
@@ -67,5 +70,22 @@ public class ReactionDaoImpl extends JdbcDaoSupport implements ReactionDao {
             throw CommonException.builder().code(COMMENT_NOT_FOUND).userMessage("Комментарий не найден")
                     .httpStatus(BAD_REQUEST).build();
         }
+    }
+
+    @Override
+    public void unblockUser(long userId, long blockUserId) {
+        jdbcTemplate.update("DELETE FROM block WHERE user_id = ? AND block_user_id = ?;", userId, blockUserId);
+    }
+
+    @Override
+    public List<UserResp> getBlockUsers(long userId) {
+        return jdbcTemplate.query(
+                "SELECT id, nickname FROM user WHERE id IN (SELECT block_user_id FROM block WHERE user_id = ?);",
+                new UserRespRowMapper(), userId);
+    }
+
+    @Override
+    public void blockUser(long userId, long blockUserId) {
+        jdbcTemplate.update("INSERT IGNORE INTO block(user_id, block_user_id) VALUES (?,?);", userId, blockUserId);
     }
 }

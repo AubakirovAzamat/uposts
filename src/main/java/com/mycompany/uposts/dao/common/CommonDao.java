@@ -17,4 +17,8 @@ public interface CommonDao {
     List<CommentResp> getCommentsByPostId(long postId);
 
     long getCountLikesByPostId(long postId);
+
+    long getUserIdByPostId(long postId);
+
+    boolean isBlocked(long userId, long checkBlockUserId);
 }

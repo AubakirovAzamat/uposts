@@ -34,12 +34,15 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
     }
 
     @Override
-    public List<PostResp> searchPostsByTag(SearchPostsByTagReq req) {
-        return jdbcTemplate.query("SELECT post.id AS post_id, u.id AS user_id, u.nickname, post.text, post.time_insert " +
-                "FROM post " +
-                "         JOIN user u on post.user_id = u.id " +
-                "WHERE post.id IN (SELECT post_id FROM post_tag WHERE tag_id = ?) " +
-                "ORDER BY " + req.getSort().getValue() + ";", new PostRespRowMapper(), req.getTagId());
+    public List<PostResp> searchPostsByTag(SearchPostsByTagReq req, long userId) {
+        return jdbcTemplate.query("SELECT post_id, user_id, nickname, text, time_insert " +
+                "FROM ( " +
+                "         SELECT post.id AS post_id, u.id AS user_id, u.nickname, post.text, post.time_insert " +
+                "         FROM post " +
+                "                  JOIN user u on post.user_id = u.id " +
+                "         WHERE post.id IN (SELECT post_id FROM post_tag WHERE tag_id = ?)) AS t " +
+                "WHERE user_id NOT IN (SELECT user_id FROM block WHERE blocked_user_id = ?) " +
+                "ORDER BY " + req.getSort().getValue() + ";", new PostRespRowMapper(), req.getTagId(), userId);
     }
 
     @Override
@@ -81,11 +84,14 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
     }
 
     @Override
-    public List<PostResp> searchPostsByPartWord(SearchPostsByPartWordReq req) {
-        return jdbcTemplate.query("SELECT post.id AS post_id, u.id AS user_id, u.nickname, post.text, post.time_insert " +
-                "FROM post " +
-                "         JOIN user u on post.user_id = u.id " +
-                "WHERE post.text LIKE CONCAT('%',?,'%') " +
-                "ORDER BY " + req.getSort().getValue() + ";", new PostRespRowMapper(), req.getPartWord());
+    public List<PostResp> searchPostsByPartWord(SearchPostsByPartWordReq req, long userId) {
+        return jdbcTemplate.query("SELECT post_id, user_id, nickname, text, time_insert " +
+                "FROM (" +
+                "         SELECT post.id AS post_id, u.id AS user_id, u.nickname, post.text, post.time_insert " +
+                "         FROM post " +
+                "                  JOIN user u on post.user_id = u.id " +
+                "         WHERE post.text LIKE CONCAT('%', ?, '%')) AS t " +
+                "WHERE user_id NOT IN (SELECT user_id FROM block WHERE blocked_user_id = ?) " +
+                "ORDER BY " + req.getSort().getValue() + ";", new PostRespRowMapper(), req.getPartWord(), userId);
     }
 }

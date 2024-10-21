@@ -5,9 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import com.mycompany.uposts.dao.common.CommonDao;
 import com.mycompany.uposts.domain.api.common.PostResp;
-import java.util.List;
+import com.mycompany.uposts.domain.response.exception.CommonException;
 
-@Slf4j  
+import java.util.List;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static com.mycompany.uposts.domain.constant.Code.BLOCKED;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CommonServiceImpl implements CommonService {
@@ -20,5 +24,22 @@ public class CommonServiceImpl implements CommonService {
             postResp.setCountLikes(commonDao.getCountLikesByPostId(postResp.getPostId()));
             postResp.setComments(commonDao.getCommentsByPostId(postResp.getPostId()));
         }
+    }
+
+    @Override
+    public void checkBlockByPostId(long userId, long postId) {
+        long checkBlockUserId = commonDao.getUserIdByPostId(postId);
+        checkBlock(userId, checkBlockUserId);
+    }
+
+    @Override
+    public void checkBlockByUserId(long userId, long checkBlockUserId) {
+        checkBlock(userId, checkBlockUserId);
+    }
+
+    private void checkBlock(long userId, long checkBlockUserId) {
+        if (commonDao.isBlocked(userId, checkBlockUserId))
+            throw CommonException.builder().code(BLOCKED).userMessage("Вы заблокированы этим юзером")
+                    .httpStatus(BAD_REQUEST).build();
     }
 }
