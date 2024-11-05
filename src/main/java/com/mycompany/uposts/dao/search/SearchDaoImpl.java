@@ -41,7 +41,7 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
                 "         FROM post " +
                 "                  JOIN user u on post.user_id = u.id " +
                 "         WHERE post.id IN (SELECT post_id FROM post_tag WHERE tag_id = ?)) AS t " +
-                "WHERE user_id NOT IN (SELECT user_id FROM block WHERE blocked_user_id = ?) " +
+                "WHERE user_id NOT IN (SELECT user_id FROM block WHERE block_user_id = ?) " +
                 "ORDER BY " + req.getSort().getValue() + ";", new PostRespRowMapper(), req.getTagId(), userId);
     }
 
@@ -91,7 +91,7 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
                 "         FROM post " +
                 "                  JOIN user u on post.user_id = u.id " +
                 "         WHERE post.text LIKE CONCAT('%', ?, '%')) AS t " +
-                "WHERE user_id NOT IN (SELECT user_id FROM block WHERE blocked_user_id = ?) " +
+                "WHERE user_id NOT IN (SELECT user_id FROM block WHERE block_user_id = ?) " +
                 "ORDER BY " + req.getSort().getValue() + ";", new PostRespRowMapper(), req.getPartWord(), userId);
     }
 }

@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 898506azik
+      MYSQL_DATABASE: post_public
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

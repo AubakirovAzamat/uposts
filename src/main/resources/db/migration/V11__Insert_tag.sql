@@ -1,0 +1,1 @@
+INSERT INTO tag(text) SELECT 'облако';

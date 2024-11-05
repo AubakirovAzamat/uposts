@@ -6,11 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
 import com.mycompany.uposts.dao.common.CommonDao;
 import com.mycompany.uposts.dao.user.UserDao;
-import com.mycompany.uposts.domain.api.*;
 import com.mycompany.uposts.domain.api.common.CommonPostsResp;
 import com.mycompany.uposts.domain.api.common.PostResp;
 import com.mycompany.uposts.domain.api.user.login.LoginReq;
