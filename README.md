@@ -10,4 +10,4 @@ Postman: https://azazlo.postman.co/workspace/Aza%23ZLO-Workspace~eadf896c-2d6a-4
 
 Java 11, Maven, Spring boot, MySQL, flyway, Docker
 
-![alt text](image.png)
+![Alt text](https://github.com/AubakirovAzamat/uposts/blob/master/src/main/resources/docs/image.png)
